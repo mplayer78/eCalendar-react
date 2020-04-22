@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import CalendarContext from "./state/context";
+import reducer from "./state/reducer";
+import { initialState } from "./state/initialState";
+import Layout from "./components/Layout";
+import CalendarComponent from "./components/CalendarComponent";
+import EventsComponent from "./components/EventsComponent";
+import AddEventModal from "./components/AddEventModal";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <CalendarContext.Provider value={{ state, dispatch }}>
+        <Layout>
+          <CalendarComponent />
+          <EventsComponent />
+          <AddEventModal />
+        </Layout>
+      </CalendarContext.Provider>
+    </>
   );
 }
 
