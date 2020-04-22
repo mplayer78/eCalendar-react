@@ -5,6 +5,8 @@ import {
   addToCalendar,
 } from "../util/createDays";
 
+import { makeTime } from "../util/helpers";
+
 function reducer(state, action) {
   switch (action.type) {
     case "initial_load":
@@ -67,13 +69,19 @@ function reducer(state, action) {
       };
     case "add_event":
       let selectedDay = state.allDays[state.selectedDayId];
+      let formattedEvent = {
+        ...action.event,
+        startTime: makeTime(action.event.startTime),
+        endTime: makeTime(action.event.endTime),
+      };
       let addedEventDay = {
         ...selectedDay,
-        events: [...selectedDay.events, action.event],
+        events: [...selectedDay.events, formattedEvent],
       };
       return {
         ...state,
         allDays: { ...state.allDays, [state.selectedDayId]: addedEventDay },
+        modalVisible: false,
       };
     default:
       return state;

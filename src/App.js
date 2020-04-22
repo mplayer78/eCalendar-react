@@ -15,7 +15,7 @@ function App() {
         <Layout>
           <CalendarComponent />
           <EventsComponent />
-          <AddEventModal />
+          <AddEventModal visible={state.modalVisible} />
         </Layout>
       </CalendarContext.Provider>
     </>

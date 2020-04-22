@@ -1,97 +1,117 @@
 import React, { useState, useContext } from "react";
 import { Event } from "../util/events";
 import CalendarContext from "../state/context";
+import CloseButton from "../images/CloseButton";
 
 const AddEventModal = (props) => {
-  const [formState, setFormState] = useState(new Event());
   const { state, dispatch } = useContext(CalendarContext);
+  const selectedDay = state.allDays[state.selectedDayId];
+  const [formState, setFormState] = useState(new Event());
+  const [accentColor, setAccentColor] = useState("#999999");
 
   function handleChange(field, value) {
     setFormState({ ...formState, [field]: value });
   }
 
   return (
-    <div className="add-event-modal">
-      <button>close</button>
+    <div
+      className="add-event-modal"
+      style={{ visibility: state.modalVisible ? "visible" : "hidden" }}
+    >
+      <button
+        className="close_button"
+        onClick={() => dispatch({ type: "hide_modal" })}
+        onPointerOver={() => setAccentColor("#333333")}
+        onPointerOut={() => setAccentColor("#999999")}
+      >
+        <CloseButton color={accentColor} />
+      </button>
       <form
         action="POST"
         onSubmit={(e) => {
           e.preventDefault();
           dispatch({ type: "add_event", event: formState });
         }}
+        className="add_event_form"
       >
-        <label htmlFor="title">
+        <label htmlFor="title" labeltitle="title">
           title
-          <input
-            type="text"
-            name="title"
-            value={formState.title}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="startDate">
+        <input
+          type="text"
+          name="title"
+          value={formState.title}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="startDate" labeltitle="startDate">
           start date
-          <input
-            type="text"
-            name="startDate"
-            value={formState.startDate}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="endDate">
+        <input
+          type="text"
+          name="startDate"
+          value={`${selectedDay?.day}/${selectedDay?.month}/${selectedDay?.year}`}
+          readOnly
+          // value={formState.startDate}
+          // onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="endDate" labeltitle="endDate">
           end date
-          <input
-            type="text"
-            name="endDate"
-            value={formState.endDate}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="startTime">
+        <input
+          type="text"
+          name="endDate"
+          value={`${selectedDay?.day}/${selectedDay?.month}/${selectedDay?.year}`}
+          readOnly
+          // value={formState.endDate}
+          // onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="startTime" labeltitle="startTime">
           start time
-          <input
-            type="text"
-            name="startTime"
-            value={formState.startTime}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="endTime">
+        <input
+          type="text"
+          name="startTime"
+          placeholder="--:--"
+          value={formState.startTime}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="endTime" labeltitle="endTime">
           end time
-          <input
-            type="text"
-            name="endTime"
-            value={formState.endTime}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="people">
+        <input
+          type="text"
+          name="endTime"
+          placeholder="--:--"
+          value={formState.endTime}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="people" labeltitle="people">
           people
-          <input
-            type="text"
-            name="people"
-            value={formState.people}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="location">
+        <input
+          type="text"
+          name="people"
+          value={formState.people}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="location" labeltitle="location">
           location
-          <input
-            type="text"
-            name="location"
-            value={formState.location}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
-        <label htmlFor="description">
+        <input
+          type="text"
+          name="location"
+          value={formState.location}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
+        <label htmlFor="description" labeltitle="description">
           description
-          <input
-            type="description"
-            name="description"
-            value={formState.description}
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-          />
         </label>
+        <input
+          type="description"
+          name="description"
+          value={formState.description}
+          onChange={(e) => handleChange(e.target.name, e.target.value)}
+        />
         <button type="submit">add event</button>
       </form>
     </div>

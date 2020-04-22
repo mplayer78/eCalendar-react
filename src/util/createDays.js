@@ -7,12 +7,13 @@ class Day {
     this.month = dayDate.getMonth();
     this.year = dayDate.getFullYear();
     this.events = [];
+    this.date = dayDate;
   }
 }
 
 export function createMonthPlus(year, month) {
   let createdMonth = {};
-  for (let d = -6; d <= monthLength(year, month) + 7; d++) {
+  for (let d = -10; d <= monthLength(year, month) + 20; d++) {
     const newDay = new Day(year, month, d);
     createdMonth[newDay.dateId] = newDay;
   }
@@ -20,7 +21,7 @@ export function createMonthPlus(year, month) {
 }
 
 export function addToCalendar(calendar, month) {
-  return { ...month, calendar };
+  return { ...month, ...calendar };
 }
 
 export function dateId(date) {
@@ -30,7 +31,7 @@ export function dateId(date) {
 export function getMonthIncSurr(year, month, calendarObj) {
   let encMonth = [];
   let monthStart = calendarObj[`${year}-${month}-1`];
-  for (let i = 1; i <= 35; i++) {
+  for (let i = 1; i <= 42; i++) {
     let tempDate = new Date(year, month, i - monthStart.dayOfWeek);
     let dateId = `${tempDate.getFullYear()}-${tempDate.getMonth()}-${tempDate.getDate()}`;
     encMonth.push(calendarObj[dateId]);
