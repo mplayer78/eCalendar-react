@@ -11,4 +11,6 @@ To run the app:
 - Navigate to:
   [http://localhost:3000/]
 
+Or the app is deployed at [https://ecalendar-react.netlify.app/]
+
 Currently the app does not feature persistence to page reloads.
