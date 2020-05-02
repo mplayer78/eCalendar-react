@@ -177,6 +177,10 @@ input:focus {
   background-color: transparent;
 }
 
+.events-on {
+  background-color: #20dd2050;
+}
+
 .current_focus_day {
   /* border: solid red 2px; */
   background-color: #dddddd;

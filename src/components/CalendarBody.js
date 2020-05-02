@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import CalendarContext from "../state/context";
 import { DAYS } from "../util/constants";
 import CalendarDay from "./CalendarDay";
-import { dateId } from "../util/createDays";
+import { makeDateId } from "../util/createDays";
 
 const CalendarBody = (props) => {
   const { state, dispatch } = useContext(CalendarContext);
   let today = new Date();
-  today = dateId(today);
+  today = makeDateId(today);
   return (
     <div className="calendar-body">
       <button
@@ -28,6 +28,7 @@ const CalendarBody = (props) => {
             selected={v.dateId === state.selectedDayId}
             {...v}
             today={today === v.dateId}
+            dayInfo={state.allDays[v.dateId]}
             key={v.dateId}
           />
         ))}

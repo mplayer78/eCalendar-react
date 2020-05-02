@@ -3,11 +3,12 @@ import CalendarContext from "../state/context";
 
 const CalendarDay = (props) => {
   const { dispatch } = useContext(CalendarContext);
-  const { inactive, selected, today } = props;
+  const { inactive, selected, today, events, dayInfo } = props;
+  console.log("events", dayInfo.events.length > 0);
   const calClass = `cal_day cal-button ${inactive ? "inactive" : ""} ${
     selected ? "current_focus_day" : ""
-  } ${today ? "cal-today" : ""}`;
-
+  } ${today ? "cal-today" : ""} 
+  ${dayInfo.events.length > 0 ? "events-on" : ""}`;
   return (
     <button
       className={calClass}

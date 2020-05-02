@@ -1,7 +1,7 @@
 class Day {
   constructor(year, month, day) {
     const dayDate = new Date(year, month, day);
-    this.dateId = dateId(dayDate);
+    this.dateId = makeDateId(dayDate);
     this.dayOfWeek = dayDate.getDay();
     this.day = dayDate.getDate();
     this.month = dayDate.getMonth();
@@ -24,16 +24,19 @@ export function addToCalendar(calendar, month) {
   return { ...month, ...calendar };
 }
 
-export function dateId(date) {
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+export function makeDateId(date) {
+  let currMonth = date.getMonth() + 1;
+  return `${date.getFullYear()}-${currMonth < 10 ? "0" : ""}${currMonth}-${
+    date.getDate() < 10 ? "0" : ""
+  }${date.getDate()}`;
 }
 
 export function getMonthIncSurr(year, month, calendarObj) {
   let encMonth = [];
-  let monthStart = calendarObj[`${year}-${month}-1`];
+  let monthStart = calendarObj[makeDateId(new Date(year, month, 1))];
   for (let i = 1; i <= 42; i++) {
     let tempDate = new Date(year, month, i - monthStart.dayOfWeek);
-    let dateId = `${tempDate.getFullYear()}-${tempDate.getMonth()}-${tempDate.getDate()}`;
+    let dateId = makeDateId(tempDate);
     encMonth.push(calendarObj[dateId]);
   }
   return encMonth;

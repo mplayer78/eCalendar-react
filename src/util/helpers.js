@@ -16,10 +16,5 @@ export function makeTimeString(time) {
 // takes a time string starting with a number then some sort of divider and returns a float time representation
 export function makeTime(timeString) {
   let [_, hours, minutes] = /^(\d*)\W*(\d*)/.exec(timeString);
-  console.log("hours,minutes", parseInt(hours), parseInt(minutes));
-  console.log(
-    "parseInt(hours) + parseInt(minutes || 0) / 60;",
-    parseInt(hours) + parseInt(minutes || 0) / 60
-  );
   return parseInt(hours) + parseInt(minutes || 0) / 60;
 }

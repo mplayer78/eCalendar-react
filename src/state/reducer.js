@@ -1,6 +1,6 @@
 import {
   createMonthPlus,
-  dateId,
+  makeDateId,
   getMonthIncSurr,
   addToCalendar,
 } from "../util/createDays";
@@ -15,7 +15,7 @@ function reducer(state, action) {
       return {
         ...state,
         allDays: month,
-        selectedDayId: dateId(today),
+        selectedDayId: makeDateId(today),
         selectedMonth: today.getMonth(),
         selectedYear: today.getFullYear(),
         displayedDays: getMonthIncSurr(

@@ -5,7 +5,6 @@ import CloseButton from "../images/CloseButton";
 
 const AddEventModal = (props) => {
   const { state, dispatch } = useContext(CalendarContext);
-  const selectedDay = state.allDays[state.selectedDayId];
   const [formState, setFormState] = useState(new Event());
   const [accentColor, setAccentColor] = useState("#999999");
 
@@ -47,23 +46,24 @@ const AddEventModal = (props) => {
           start date
         </label>
         <input
-          type="text"
+          type="date"
           name="startDate"
-          value={`${selectedDay?.day}/${selectedDay?.month}/${selectedDay?.year}`}
-          readOnly
-          // value={formState.startDate}
-          // onChange={(e) => handleChange(e.target.name, e.target.value)}
+          value={state.selectedDayId}
+          onChange={(e) => {
+            dispatch({ type: "set_current", dateId: e.target.value });
+          }}
+          style={{ fontFamily: "inherit" }}
         />
         <label htmlFor="endDate" labeltitle="endDate">
           end date
         </label>
         <input
-          type="text"
+          type="date"
           name="endDate"
-          value={`${selectedDay?.day}/${selectedDay?.month}/${selectedDay?.year}`}
+          value={state.selectedDayId}
           readOnly
-          // value={formState.endDate}
-          // onChange={(e) => handleChange(e.target.name, e.target.value)}
+          disabled
+          style={{ fontFamily: "inherit" }}
         />
         <label htmlFor="startTime" labeltitle="startTime">
           start time
