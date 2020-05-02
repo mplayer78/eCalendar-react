@@ -30,6 +30,7 @@ const AddEventModal = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           dispatch({ type: "add_event", event: formState });
+          setFormState(new Event());
         }}
         className="add_event_form"
       >
