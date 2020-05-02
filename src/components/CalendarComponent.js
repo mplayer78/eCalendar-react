@@ -8,6 +8,9 @@ const CalendarComponent = (props) => {
   useEffect(() => {
     dispatch({ type: "initial_load" });
   }, [dispatch]);
+  useEffect(() => {
+    dispatch({ type: "update_localStorage" });
+  }, [state.allDays]);
   return (
     <div className="calendar-component">
       <div className="header-container">

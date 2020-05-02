@@ -12,9 +12,13 @@ function reducer(state, action) {
     case "initial_load":
       let today = new Date();
       let month = createMonthPlus(today.getFullYear(), today.getMonth());
+      let allDays =
+        localStorage && localStorage.getItem("eCal-react")
+          ? JSON.parse(localStorage.getItem("eCal-react"))
+          : month;
       return {
         ...state,
-        allDays: month,
+        allDays,
         selectedDayId: makeDateId(today),
         selectedMonth: today.getMonth(),
         selectedYear: today.getFullYear(),
@@ -83,6 +87,11 @@ function reducer(state, action) {
         allDays: { ...state.allDays, [state.selectedDayId]: addedEventDay },
         modalVisible: false,
       };
+    case "update_localStorage":
+      if (localStorage) {
+        localStorage.setItem("eCal-react", JSON.stringify(state.allDays));
+      }
+      return state;
     default:
       return state;
   }
